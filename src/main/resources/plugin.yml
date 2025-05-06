@@ -1,0 +1,5 @@
+name: KaituoSurvivalProps
+version: '1.0'
+main: fun.kaituo.kaituoSurvivalProps.KaituoSurvivalProps
+api-version: '1.21'
+authors: [ APairOfMoons ]
