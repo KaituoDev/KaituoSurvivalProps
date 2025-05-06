@@ -8,6 +8,9 @@ commands:
   getsizepotion:
     description: Gives a potion that can change your size
 
+  getbreaker:
+    description: Gives a block breaker
+
 permissions:
   kaituoprops.*:
     description: Parent permission for kaituoprops
@@ -15,4 +18,8 @@ permissions:
     children:
       kaituoprops.getsizepotion:
         description: Permission to use /getsizepotion command
+        default: op
+
+      kaituoprops.getbreaker:
+        description: Permission to use /getbreaker command
         default: op

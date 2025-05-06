@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-public class SizeChangePotionCommand implements CommandExecutor {
+public class GetSizeChangePotionCommand implements CommandExecutor {
 
     private static final Set<Character> VALID_COLOR_CODES = new HashSet<>(Arrays.asList(
             '0','1','2','3','4','5','6','7','8','9',

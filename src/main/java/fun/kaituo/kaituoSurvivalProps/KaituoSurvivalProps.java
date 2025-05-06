@@ -1,6 +1,8 @@
 package fun.kaituo.kaituoSurvivalProps;
 
-import fun.kaituo.kaituoSurvivalProps.commands.SizeChangePotionCommand;
+import fun.kaituo.kaituoSurvivalProps.commands.GetBlockBreakerCommand;
+import fun.kaituo.kaituoSurvivalProps.commands.GetSizeChangePotionCommand;
+import fun.kaituo.kaituoSurvivalProps.props.BlockBreaker;
 import fun.kaituo.kaituoSurvivalProps.props.SizeChangePotion;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
@@ -26,6 +28,9 @@ public final class KaituoSurvivalProps extends JavaPlugin {
 
     private void registerProps() {
 
+        // 方块破坏者
+        Bukkit.getPluginManager().registerEvents(new BlockBreaker(), this);
+
         // 变形药水
         if (Bukkit.getScoreboardManager().getMainScoreboard().getObjective("SizeChangeDuration") == null) {
             Bukkit.getScoreboardManager().getMainScoreboard().registerNewObjective("SizeChangeDuration", "dummy", "SizeChangeDuration");
@@ -46,7 +51,10 @@ public final class KaituoSurvivalProps extends JavaPlugin {
 
     private void registerCommands() {
         if (getCommand("getsizepotion") != null) {
-            getCommand("getsizepotion").setExecutor(new SizeChangePotionCommand());
+            getCommand("getsizepotion").setExecutor(new GetSizeChangePotionCommand());
+        }
+        if (getCommand("getbreaker") != null) {
+            getCommand("getbreaker").setExecutor(new GetBlockBreakerCommand());
         }
     }
 }
