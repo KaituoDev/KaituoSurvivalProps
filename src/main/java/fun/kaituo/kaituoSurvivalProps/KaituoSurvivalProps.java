@@ -1,17 +1,52 @@
 package fun.kaituo.kaituoSurvivalProps;
 
+import fun.kaituo.kaituoSurvivalProps.commands.SizeChangePotionCommand;
+import fun.kaituo.kaituoSurvivalProps.props.SizeChangePotion;
+import org.bukkit.Bukkit;
+import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scoreboard.Objective;
+
+import static fun.kaituo.kaituoSurvivalProps.props.SizeChangePotion.Countdown;
 
 public final class KaituoSurvivalProps extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
-
+        registerProps();
+        registerCommands();
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        HandlerList.unregisterAll(this);
+        Bukkit.getScheduler().cancelTasks(this);
+    }
+
+    private void registerProps() {
+
+        // 变形药水
+        if (Bukkit.getScoreboardManager().getMainScoreboard().getObjective("SizeChangeDuration") == null) {
+            Bukkit.getScoreboardManager().getMainScoreboard().registerNewObjective("SizeChangeDuration", "dummy", "SizeChangeDuration");
+        }
+        Objective objective = Bukkit.getScoreboardManager().getMainScoreboard().getObjective("SizeChangeDuration");
+        if (objective != null) {
+
+            Bukkit.getPluginManager().registerEvents(new SizeChangePotion(objective), this);
+
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    Countdown(objective);
+                }
+            }.runTaskTimer(this, 0, 1);
+        }
+    }
+
+    private void registerCommands() {
+        if (getCommand("getsizepotion") != null) {
+            getCommand("getsizepotion").setExecutor(new SizeChangePotionCommand());
+        }
     }
 }

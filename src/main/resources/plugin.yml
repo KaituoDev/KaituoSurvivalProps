@@ -3,3 +3,16 @@ version: '1.0'
 main: fun.kaituo.kaituoSurvivalProps.KaituoSurvivalProps
 api-version: '1.21'
 authors: [ APairOfMoons ]
+
+commands:
+  getsizepotion:
+    description: Gives a potion that can change your size
+
+permissions:
+  kaituoprops.*:
+    description: Parent permission for kaituoprops
+
+    children:
+      kaituoprops.getsizepotion:
+        description: Permission to use /getsizepotion command
+        default: op
