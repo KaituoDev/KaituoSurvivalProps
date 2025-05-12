@@ -3,6 +3,8 @@ package fun.kaituo.kaituoSurvivalProps;
 import fun.kaituo.kaituoSurvivalProps.commands.GetBlockBreakerCommand;
 import fun.kaituo.kaituoSurvivalProps.commands.GetSizeChangePotionCommand;
 import fun.kaituo.kaituoSurvivalProps.props.BlockBreaker;
+import fun.kaituo.kaituoSurvivalProps.props.BrownSugarSoup;
+import fun.kaituo.kaituoSurvivalProps.props.InfiniteFood;
 import fun.kaituo.kaituoSurvivalProps.props.SizeChangePotion;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
@@ -13,11 +15,16 @@ import org.bukkit.scoreboard.Objective;
 import static fun.kaituo.kaituoSurvivalProps.props.SizeChangePotion.Countdown;
 
 public final class KaituoSurvivalProps extends JavaPlugin {
+    private static KaituoSurvivalProps plugin;
+    public static KaituoSurvivalProps getPlugin() {
+        return plugin;
+    }
 
     @Override
     public void onEnable() {
         registerProps();
         registerCommands();
+        plugin = this;
     }
 
     @Override
@@ -47,6 +54,12 @@ public final class KaituoSurvivalProps extends JavaPlugin {
                 }
             }.runTaskTimer(this, 0, 1);
         }
+
+        // 无限食物
+        Bukkit.getPluginManager().registerEvents(new InfiniteFood(), this);
+
+        // 红糖水
+        Bukkit.getPluginManager().registerEvents(new BrownSugarSoup(), this);
     }
 
     private void registerCommands() {

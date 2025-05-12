@@ -11,6 +11,9 @@ commands:
   getbreaker:
     description: Gives a block breaker
 
+  getinfinitefood:
+    description: Gives food that will not be consumed
+
 permissions:
   kaituoprops.*:
     description: Parent permission for kaituoprops
@@ -22,4 +25,8 @@ permissions:
 
       kaituoprops.getbreaker:
         description: Permission to use /getbreaker command
+        default: op
+
+      kaituoprops.getinfinitefood:
+        description: Permission to use /getinfinitefood command
         default: op
