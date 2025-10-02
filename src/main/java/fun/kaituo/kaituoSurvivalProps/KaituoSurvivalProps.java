@@ -2,10 +2,7 @@ package fun.kaituo.kaituoSurvivalProps;
 
 import fun.kaituo.kaituoSurvivalProps.commands.GetBlockBreakerCommand;
 import fun.kaituo.kaituoSurvivalProps.commands.GetSizeChangePotionCommand;
-import fun.kaituo.kaituoSurvivalProps.props.BlockBreaker;
-import fun.kaituo.kaituoSurvivalProps.props.BrownSugarSoup;
-import fun.kaituo.kaituoSurvivalProps.props.InfiniteFood;
-import fun.kaituo.kaituoSurvivalProps.props.SizeChangePotion;
+import fun.kaituo.kaituoSurvivalProps.props.*;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -60,6 +57,9 @@ public final class KaituoSurvivalProps extends JavaPlugin {
 
         // 红糖水
         Bukkit.getPluginManager().registerEvents(new BrownSugarSoup(), this);
+
+        // 无限经验瓶
+        Bukkit.getPluginManager().registerEvents(new InfiniteExpBottle(), this);
     }
 
     private void registerCommands() {
