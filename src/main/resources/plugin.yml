@@ -14,6 +14,9 @@ commands:
   getinfinitefood:
     description: Gives food that will not be consumed
 
+  getlabitem:
+    description: Gives the specified lab item
+
 permissions:
   kaituoprops.*:
     description: Parent permission for kaituoprops

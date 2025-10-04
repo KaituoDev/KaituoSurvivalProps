@@ -23,6 +23,17 @@ import java.util.UUID;
 import java.util.function.Function;
 
 public class InfiniteExpBottle implements Listener {
+
+    public static ItemStack getInfiniteExpBottle() {
+        ItemStack bottle = new ItemStack(Material.EXPERIENCE_BOTTLE);
+
+        // 设置NBT标签
+        NBT.modify(bottle, nbt -> {
+            nbt.setBoolean("InfiniteExpBottle", true);
+        });
+        return bottle;
+    }
+
     @EventHandler
     public void onExpBottleLanding(ExpBottleEvent ebe) {
         ThrownExpBottle bottle = ebe.getEntity();

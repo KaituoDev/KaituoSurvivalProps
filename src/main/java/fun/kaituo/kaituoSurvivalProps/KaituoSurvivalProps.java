@@ -1,6 +1,7 @@
 package fun.kaituo.kaituoSurvivalProps;
 
 import fun.kaituo.kaituoSurvivalProps.commands.GetBlockBreakerCommand;
+import fun.kaituo.kaituoSurvivalProps.commands.GetLabItemCommand;
 import fun.kaituo.kaituoSurvivalProps.commands.GetSizeChangePotionCommand;
 import fun.kaituo.kaituoSurvivalProps.props.*;
 import org.bukkit.Bukkit;
@@ -60,6 +61,13 @@ public final class KaituoSurvivalProps extends JavaPlugin {
 
         // 无限经验瓶
         Bukkit.getPluginManager().registerEvents(new InfiniteExpBottle(), this);
+
+        // 随机颜色墨囊
+        Bukkit.getPluginManager().registerEvents(new InfiniteInkSac(), this);
+
+        //跳跃苹果
+        Bukkit.getPluginManager().registerEvents(new InfiniteApple(), this);
+
     }
 
     private void registerCommands() {
@@ -68,6 +76,11 @@ public final class KaituoSurvivalProps extends JavaPlugin {
         }
         if (getCommand("getbreaker") != null) {
             getCommand("getbreaker").setExecutor(new GetBlockBreakerCommand());
+        }
+        if (getCommand("getlabitem") != null) {
+            GetLabItemCommand getLabItemCommand = new GetLabItemCommand();
+            getCommand("getlabitem").setExecutor(getLabItemCommand);
+            getCommand("getlabitem").setTabCompleter(getLabItemCommand);
         }
     }
 }
