@@ -65,9 +65,11 @@ public final class KaituoSurvivalProps extends JavaPlugin {
         // 随机颜色墨囊
         Bukkit.getPluginManager().registerEvents(new InfiniteInkSac(), this);
 
-        //跳跃苹果
+        // 跳跃苹果
         Bukkit.getPluginManager().registerEvents(new InfiniteApple(), this);
 
+        // 假附魔金苹果
+        Bukkit.getPluginManager().registerEvents(new FakeEnchantedGoldenApple(), this);
     }
 
     private void registerCommands() {

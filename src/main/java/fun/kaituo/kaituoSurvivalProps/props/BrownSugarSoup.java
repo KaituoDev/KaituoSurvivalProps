@@ -25,7 +25,6 @@ public class BrownSugarSoup implements Listener {
         Boolean isInfinite = NBT.get(sugar, (Function<ReadableItemNBT, Boolean>) nbt -> nbt.getBoolean("InfiniteFood"));
         if (!Boolean.TRUE.equals(isInfinite)) {
             return;
-
         }
         Boolean isBrownSugar = NBT.get(sugar, (Function<ReadableItemNBT, Boolean>) nbt -> nbt.getBoolean("BrownSugarSoup"));
         if (!Boolean.TRUE.equals(isBrownSugar)) {
