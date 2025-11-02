@@ -1,6 +1,5 @@
 package fun.kaituo.kaituoSurvivalProps.commands;
 
-import fun.kaituo.kaituoSurvivalProps.props.InfiniteApple;
 import fun.kaituo.kaituoSurvivalProps.props.InfiniteExpBottle;
 import fun.kaituo.kaituoSurvivalProps.props.InfiniteInkSac;
 import org.bukkit.command.Command;
@@ -16,15 +15,12 @@ import java.util.List;
 
 public class GetLabItemCommand implements TabCompleter,CommandExecutor {
     public static final List<String> labItemNames = List.of(
-            "InfiniteApple",
             "InfiniteInkSac",
             "InfiniteExpBottole"
     );
 
     public static ItemStack getLabItem(String name) {
         switch(name.toLowerCase()) {
-            case "infiniteapple":
-                return InfiniteApple.getInfiniteApple();
             case "infiniteinksac":
                 return InfiniteInkSac.getInfiniteInk_Sac();
             case "infiniteexpbottole":
