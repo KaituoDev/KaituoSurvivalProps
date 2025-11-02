@@ -2,6 +2,7 @@ package fun.kaituo.kaituoSurvivalProps.props;
 
 import de.tr7zw.changeme.nbtapi.NBT;
 import de.tr7zw.changeme.nbtapi.NBTItem;
+import de.tr7zw.changeme.nbtapi.iface.ReadableItemNBT;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
@@ -14,6 +15,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 public class BlockBreaker implements Listener {
 
@@ -53,6 +55,11 @@ public class BlockBreaker implements Listener {
             Material.GREEN_STAINED_GLASS_PANE,
             Material.RED_STAINED_GLASS_PANE,
             Material.BLACK_STAINED_GLASS_PANE,
+    };
+
+    private static final Material[] ANCIENT_BLOCKS = {
+            Material.ANCIENT_DEBRIS, // 远古残骸
+            Material.NETHERITE_BLOCK, // 下界合金块
     };
 
     @EventHandler
@@ -100,6 +107,22 @@ public class BlockBreaker implements Listener {
                         giveNewTool(tool, pie.getPlayer());
                     }
                     break;
+                }
+                break;
+            case STONE_PICKAXE:
+                Boolean isAncientPickaxe = NBT.get(tool, (Function<ReadableItemNBT, Boolean>) nbt -> nbt.getBoolean("AncientPickaxe"));
+                if (!isAncientPickaxe) {
+                    break;
+                }
+                for (Material m : ANCIENT_BLOCKS) {
+                    if (block.getBlockData().getMaterial().equals(m)) {
+                        pie.setCancelled(true);
+                        block.setType(Material.AIR);
+                        block.getWorld().playSound(aim, Sound.BLOCK_ANCIENT_DEBRIS_BREAK, 1.0f, 1.0f);
+                        block.getWorld().spawnParticle(Particle.BLOCK, visual, 100, m.createBlockData());
+                        block.getWorld().dropItemNaturally(aim, new ItemStack(m, 1));
+                        break;
+                    }
                 }
                 break;
         }
