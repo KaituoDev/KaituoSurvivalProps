@@ -8,14 +8,21 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scoreboard.Objective;
 
 import static fun.kaituo.kaituoSurvivalProps.props.SizeChangePotion.Countdown;
 
 public final class KaituoSurvivalProps extends JavaPlugin {
     private static KaituoSurvivalProps plugin;
+    private static final BukkitScheduler scheduler = Bukkit.getScheduler();
+
     public static KaituoSurvivalProps getPlugin() {
         return plugin;
+    }
+
+    public static BukkitScheduler getScheduler() {
+        return scheduler;
     }
 
     @Override
@@ -61,6 +68,9 @@ public final class KaituoSurvivalProps extends JavaPlugin {
 
         // 随机颜色墨囊
         Bukkit.getPluginManager().registerEvents(new InfiniteInkSac(), this);
+
+        // 物品名称改色卡
+        Bukkit.getPluginManager().registerEvents(new ColorChangeTicket(), this);
     }
 
     private void registerCommands() {
