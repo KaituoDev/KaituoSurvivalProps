@@ -4,6 +4,8 @@ import de.tr7zw.changeme.nbtapi.NBTItem;
 import fun.kaituo.kaituoSurvivalProps.KaituoSurvivalProps;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
@@ -39,9 +41,19 @@ public class ColorChangeTicket implements Listener {
             .append(Component.text("R ").color(TextColor.color(243, 21, 63)).decorate(TextDecoration.BOLD))
             .append(Component.text("G ").color(TextColor.color(63, 243, 21)).decorate(TextDecoration.BOLD))
             .append(Component.text("B ").color(TextColor.color(0, 158, 255)).decorate(TextDecoration.BOLD))
-            .append(Component.text("值").color(TextColor.color(204, 246, 207)));
-    private final static Component colorInputTips = Component.text("(由三个[0,255]之间的整数构成，三个数中间用两个空格隔开)：")
+            .append(Component.text("值：").color(TextColor.color(204, 246, 207)));
+    private final static Component colorInputTips = Component.text("(由三个[0,255]之间的整数构成，三个数中间用两个空格隔开)")
             .color(TextColor.color(204, 246, 207));
+    private final static Component colorChooseTips = Component.text("(若想不出满意的颜色，可以去").color(TextColor.color(204, 246, 207))
+            .append(Component.text("[Gradients.app]")
+                    .decorate(TextDecoration.BOLD)
+                    .color(TextColor.color(230, 255, 235))
+                    .clickEvent(ClickEvent.openUrl("https://gradients.app/zh/colorpalette"))
+                    .hoverEvent(HoverEvent.showText(Component.text("Gradients.app中文版 配色方案网站")
+                            .color(TextColor.color(230, 255, 235)))))
+            .append(Component.text("找找灵感)").color(TextColor.color(204, 246, 207)));
+    private final static Component itemTooMuchErrorWarn = Component.text("每次最多只能编辑副手中的一个物品！")
+            .decorate(TextDecoration.ITALIC).color(TextColor.color(255, 197, 72));
     private final static Component inputErrorWarn = Component.text("无法识别输入内容，请重新进行编辑！")
             .decorate(TextDecoration.ITALIC).color(TextColor.color(255, 197, 72));
     private final static Component ticketNotFoundErrorWarn = Component.text("未在主手找到改色卡，请重新进行编辑！")
@@ -71,6 +83,10 @@ public class ColorChangeTicket implements Listener {
         ItemStack item = player.getInventory().getItemInOffHand();
         if (item.getType().equals(Material.AIR)) {
             warnPlayer(player, itemNotFoundErrorWarn);
+            return;
+        }
+        if (item.getAmount() != 1) {
+            warnPlayer(player, itemTooMuchErrorWarn);
             return;
         }
 
@@ -130,11 +146,17 @@ public class ColorChangeTicket implements Listener {
         pie.setCancelled(true);
         player.setCooldown(Material.FLOWER_BANNER_PATTERN, 20);
 
+        if (player.getInventory().getItemInOffHand().getAmount() != 1) {
+            warnPlayer(player, itemTooMuchErrorWarn);
+            return;
+        }
+
         player.sendMessage(dividingLine);
         player.sendMessage(startEditMessage);
         player.sendMessage(dividingLine);
         player.sendMessage(colorInputRequest);
         player.sendMessage(colorInputTips);
+        player.sendMessage(colorChooseTips);
         UUID uuid = player.getUniqueId();
         int timerID = KaituoSurvivalProps.getScheduler().runTaskLater(KaituoSurvivalProps.getPlugin(),
                 () -> {
